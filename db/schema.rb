@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20171210231228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "photos", force: :cascade do |t|
+    t.string "hash"
+    t.string "filetype"
+    t.string "original_filename"
+    t.string "filename"
+    t.datetime "modifydate"
+    t.datetime "createdate"
+    t.string "make"
+    t.string "model"
+    t.string "orientation"
+    t.integer "imagewidth"
+    t.integer "imageheight"
+    t.string "gpslatitude"
+    t.string "gpslongitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Hash:</strong>
+  <%= @photo.hash %>
+</p>
+
+<p>
+  <strong>Filetype:</strong>
+  <%= @photo.filetype %>
+</p>
+
+<p>
+  <strong>Original filename:</strong>
+  <%= @photo.original_filename %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @photo.filename %>
+</p>
+
+<p>
+  <strong>Modifydate:</strong>
+  <%= @photo.modifydate %>
+</p>
+
+<p>
+  <strong>Createdate:</strong>
+  <%= @photo.createdate %>
+</p>
+
+<p>
+  <strong>Make:</strong>
+  <%= @photo.make %>
+</p>
+
+<p>
+  <strong>Model:</strong>
+  <%= @photo.model %>
+</p>
+
+<p>
+  <strong>Orientation:</strong>
+  <%= @photo.orientation %>
+</p>
+
+<p>
+  <strong>Imagewidth:</strong>
+  <%= @photo.imagewidth %>
+</p>
+
+<p>
+  <strong>Imageheight:</strong>
+  <%= @photo.imageheight %>
+</p>
+
+<p>
+  <strong>Gpslatitude:</strong>
+  <%= @photo.gpslatitude %>
+</p>
+
+<p>
+  <strong>Gpslongitude:</strong>
+  <%= @photo.gpslongitude %>
+</p>
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %>
