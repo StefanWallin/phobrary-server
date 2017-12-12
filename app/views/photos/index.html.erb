@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Hash</th>
+      <th>Digest</th>
       <th>Filetype</th>
       <th>Original filename</th>
       <th>Filename</th>
@@ -25,7 +25,7 @@
   <tbody>
     <% @photos.each do |photo| %>
       <tr>
-        <td><%= photo.hash %></td>
+        <td><%= photo.digest %></td>
         <td><%= photo.filetype %></td>
         <td><%= photo.original_filename %></td>
         <td><%= photo.filename %></td>

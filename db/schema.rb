@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210231228) do
+ActiveRecord::Schema.define(version: 20171212204352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "photos", force: :cascade do |t|
-    t.string "hash"
+    t.string "digest"
     t.string "filetype"
     t.string "original_filename"
     t.string "filename"
@@ -31,6 +31,11 @@ ActiveRecord::Schema.define(version: 20171210231228) do
     t.string "gpslongitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["createdate"], name: "index_photos_on_createdate"
+    t.index ["digest"], name: "index_photos_on_digest", unique: true
+    t.index ["filename"], name: "index_photos_on_filename"
+    t.index ["filetype"], name: "index_photos_on_filetype"
+    t.index ["original_filename"], name: "index_photos_on_original_filename"
   end
 
 end

@@ -42,13 +42,6 @@ GEM
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.1.0)
-    coffee-rails (4.2.2)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     erubi (1.7.0)
@@ -71,6 +64,9 @@ GEM
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
+    mini_exiftool (2.9.0)
+    mini_exiftool_vendored (9.2.7.v1)
+      mini_exiftool (>= 1.6.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
@@ -158,9 +154,10 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  coffee-rails (~> 4.2)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  mini_exiftool
+  mini_exiftool_vendored
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.4)
