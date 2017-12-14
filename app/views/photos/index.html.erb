@@ -11,13 +11,8 @@
       <th>Current filepath</th>
       <th>Modifydate</th>
       <th>Createdate</th>
-      <th>Make</th>
-      <th>Model</th>
-      <th>Orientation</th>
       <th>Imagewidth</th>
       <th>Imageheight</th>
-      <th>Gpslatitude</th>
-      <th>Gpslongitude</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -31,13 +26,8 @@
         <td><%= photo.current_filepath %></td>
         <td><%= photo.modifydate %></td>
         <td><%= photo.createdate %></td>
-        <td><%= photo.make %></td>
-        <td><%= photo.model %></td>
-        <td><%= photo.orientation %></td>
         <td><%= photo.imagewidth %></td>
         <td><%= photo.imageheight %></td>
-        <td><%= photo.gpslatitude %></td>
-        <td><%= photo.gpslongitude %></td>
         <td><%= link_to 'Show', photo %></td>
         <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
         <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -4,32 +4,48 @@ namespace :phobrary do
   desc 'Scan photo library directories'
   task :purge => :environment do
     Photo.destroy_all
+    Shot.destroy_all
+    Camera.destroy_all
   end
 
   task :scan => :environment do
-    puts Photo.all.length
-    duplicates = []
-    Phobrary::Commands::Scan.perform do |data|
-      photo = Photo.find_or_create_by(digest: data[:digest]) do |p|
-        p.original_filepath = data[:filepath]
-      end
-      if photo.filepath
-        duplicates.push data[:filepath]
-        Rails.logger.debug("Found matching photo: #{data[:filepath]}, #{photo.original_filepath}")
-      end
-      photo.current_filepath = data[:filepath]
-      photo.filetype = data[:filetype]
-      photo.modifydate = data[:modifydate]
-      photo.createdate = data[:createdate]
-      photo.make = data[:make]
-      photo.model = data[:model]
-      photo.orientation = data[:orientation]
-      photo.imagewidth = data[:imagewidth]
-      photo.imageheight = data[:imageheight]
-      photo.gpslatitude = data[:gpslatitude]
-      photo.gpslongitude = data[:gpslongitude]
-      photo.save!
+    Phobrary::Commands::Scan.perform do |exif, index, count|
+      printf("\rProcessing file %d of %d", index, count)
+      shot = find_or_create_shot(exif)
+      photo = create_photo(exif, shot)
     end
-    puts duplicates.count
+    puts
+  end
+
+  def find_or_create_camera(exif)
+    return nil if exif[:make].empty? && exif[:model].empty?
+    Camera.find_or_create_by(make: exif[:make], model: exif[:model])
+  end
+
+  def find_or_create_shot(exif)
+    raise "File missing create date in exif data: #{exif[:filepath]}" unless exif[:createdate]
+    camera = find_or_create_camera(exif)
+    shot = Shot.find_or_create_by(
+      camera: camera,
+      date: exif[:createdate],
+      orientation: exif[:orientation],
+      gpslatitude: exif[:gpslatitude],
+      gpslongitude: exif[:gpslongitude]
+    )
+    raise "Shot was not created for photo: #{exif[:filepath]}" if shot.nil?
+    shot
+  end
+
+  def create_photo(exif, shot)
+    Photo.find_or_create_by(
+      shot: shot,
+      digest: exif[:digest],
+      original_filepath: exif[:filepath],
+      current_filepath: exif[:filepath],
+      filetype: exif[:filetype],
+      modifydate: exif[:modifydate],
+      imagewidth: exif[:imagewidth],
+      imageheight: exif[:imageheight]
+    )
   end
 end
