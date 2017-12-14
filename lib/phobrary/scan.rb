@@ -8,27 +8,31 @@ module Phobrary::Commands
 
     def self.perform(&block)
       files = Dir.glob(File.join(DIRECTORY, '**', '*')) # TODO: BAD PERF
-      files.each do |filename|
-        localname = filename.split(DIRECTORY + '/')[1]
-        next unless filename =~ /\A.*\.jpg\z/i
-        photo = MiniExiftool.new filename
+      files.each do |filepath|
+        localpath = filepath.split(DIRECTORY + '/')[1]
+        next unless filepath =~ /\A.*\.jpg\z/i
         block.call(
-          filename: localname,
-          filetype: photo.filetype,
-          modifydate: photo.modifydate,
-          createdate: photo.createdate,
-          make: photo.make,
-          model: photo.model,
-          orientation: photo.orientation,
-          imagewidth: photo.imagewidth,
-          imageheight: photo.imageheight,
-          gpslatitude: photo.gpslatitude,
-          gpslongitude: photo.gpslongitude,
-          digest: self.digest_file(filename)
+          self.extract_exif_data(filepath, localpath)
         )
-
-
       end
+    end
+
+    def self.extract_exif_data(filepath, localpath)
+      photo = MiniExiftool.new(filepath)
+      {
+        filepath: localpath,
+        filetype: photo.filetype,
+        modifydate: photo.modifydate,
+        createdate: photo.createdate,
+        make: photo.make,
+        model: photo.model,
+        orientation: photo.orientation,
+        imagewidth: photo.imagewidth,
+        imageheight: photo.imageheight,
+        gpslatitude: photo.gpslatitude,
+        gpslongitude: photo.gpslongitude,
+        digest: self.digest_file(filepath)
+      }
     end
 
     def self.digest_file(filepath)

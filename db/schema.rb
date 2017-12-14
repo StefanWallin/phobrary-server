@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212204352) do
+ActiveRecord::Schema.define(version: 20171213190336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20171212204352) do
   create_table "photos", force: :cascade do |t|
     t.string "digest"
     t.string "filetype"
-    t.string "original_filename"
-    t.string "filename"
+    t.string "original_filepath"
+    t.string "current_filepath"
     t.datetime "modifydate"
     t.datetime "createdate"
     t.string "make"
@@ -32,10 +32,10 @@ ActiveRecord::Schema.define(version: 20171212204352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["createdate"], name: "index_photos_on_createdate"
+    t.index ["current_filepath"], name: "index_photos_on_current_filepath"
     t.index ["digest"], name: "index_photos_on_digest", unique: true
-    t.index ["filename"], name: "index_photos_on_filename"
     t.index ["filetype"], name: "index_photos_on_filetype"
-    t.index ["original_filename"], name: "index_photos_on_original_filename"
+    t.index ["original_filepath"], name: "index_photos_on_original_filepath"
   end
 
 end

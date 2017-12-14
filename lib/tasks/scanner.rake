@@ -11,13 +11,13 @@ namespace :phobrary do
     duplicates = []
     Phobrary::Commands::Scan.perform do |data|
       photo = Photo.find_or_create_by(digest: data[:digest]) do |p|
-        p.original_filename = data[:filename]
+        p.original_filepath = data[:filepath]
       end
-      if photo.filename
-        duplicates.push data[:filename]
-        Rails.logger.debug("Found matching photo: #{data[:filename]}, #{photo.original_filename}")
+      if photo.filepath
+        duplicates.push data[:filepath]
+        Rails.logger.debug("Found matching photo: #{data[:filepath]}, #{photo.original_filepath}")
       end
-      photo.filename = data[:filename]
+      photo.current_filepath = data[:filepath]
       photo.filetype = data[:filetype]
       photo.modifydate = data[:modifydate]
       photo.createdate = data[:createdate]
