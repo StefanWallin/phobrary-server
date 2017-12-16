@@ -14,7 +14,7 @@ namespace :phobrary do
       shot = find_or_create_shot(exif)
       photo = create_photo(exif, shot)
     end
-    puts
+    puts #generates newline in cli after progress indicator
   end
 
   def find_or_create_camera(exif)
