@@ -2,7 +2,7 @@
 
 <h1>Photos</h1>
 
-<table>
+<table border=1>
   <thead>
     <tr>
       <th>Digest</th>
@@ -11,8 +11,10 @@
       <th>Current filepath</th>
       <th>Modifydate</th>
       <th>Createdate</th>
+      <th>Datesource</th>
       <th>Imagewidth</th>
       <th>Imageheight</th>
+      <th>Shot</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -25,9 +27,11 @@
         <td><%= photo.original_filepath %></td>
         <td><%= photo.current_filepath %></td>
         <td><%= photo.modifydate %></td>
-        <td><%= photo.createdate %></td>
+        <td><%= photo.shot&.date %></td>
+        <td><%= photo.shot&.date_source %></td>
         <td><%= photo.imagewidth %></td>
         <td><%= photo.imageheight %></td>
+        <td><%= photo.shot_id %></td>
         <td><%= link_to 'Show', photo %></td>
         <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
         <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>

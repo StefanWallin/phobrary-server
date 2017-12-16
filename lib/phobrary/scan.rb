@@ -6,7 +6,7 @@ module Phobrary::Commands
   class Scan
     DIRECTORY = File.join('..','library','source').freeze
 
-    def self.perform(&block)
+    def self.each_image(&block)
       nodes = Dir.glob(File.join(DIRECTORY, '**', '*')) # TODO: BAD PERF, CHUNK IT
       nodes.each_with_index do |nodepath, index|
         localpath = nodepath.split(DIRECTORY + '/')[1]
@@ -17,11 +17,14 @@ module Phobrary::Commands
 
     def self.extract_exif_data(filepath, localpath)
       photo = MiniExiftool.new(filepath)
+      date = self.extract_dates(photo, filepath)
       {
+        fullpath: filepath,
         filepath: localpath,
         filetype: photo.filetype,
-        modifydate: photo.modifydate,
-        createdate: photo.createdate,
+        modifydate: date[:modifydate],
+        createdate: date[:createdate],
+        datesource: date[:datesource],
         make: photo.make,
         model: photo.model,
         orientation: photo.orientation,
@@ -30,6 +33,23 @@ module Phobrary::Commands
         gpslatitude: photo.gpslatitude,
         gpslongitude: photo.gpslongitude,
         digest: self.digest_file(filepath)
+      }
+    end
+
+    def self.extract_dates(exif, filepath)
+      source = 'exif'
+      ctime = exif[:createdate]
+      mtime = exif[:modifydate]
+      unless ctime
+        Rails.logger.warn "File missing create date in exif data: #{filepath}"
+        source = 'filesystem'
+        ctime = File.ctime(filepath)
+        mtime = File.mtime(filepath)
+      end
+      {
+        createdate: ctime,
+        modifydate: mtime,
+        datesource: source
       }
     end
 
