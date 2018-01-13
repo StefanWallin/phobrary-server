@@ -4,12 +4,10 @@ require 'byebug'
 
 module Phobrary::Commands
   class Scan
-    DIRECTORY = File.join('..','library','source').freeze
-
-    def self.each_image(&block)
-      nodes = Dir.glob(File.join(DIRECTORY, '**', '*')) # TODO: BAD PERF, CHUNK IT
+    def self.each_image(directory, &block)
+      nodes = Dir.glob(File.join(directory, '**', '*')) # TODO: BAD PERF, CHUNK IT
       nodes.each_with_index do |nodepath, index|
-        localpath = nodepath.split(DIRECTORY + '/')[1]
+        localpath = nodepath.split(directory + '/')[1]
         next unless nodepath =~ /\A.*\.jp(e)?g\z/i # Only include jpgs
         block.call(self.extract_exif_data(nodepath, localpath), index + 1, nodes.length)
       end
@@ -57,8 +55,8 @@ module Phobrary::Commands
       Digest::MD5.file(filepath).hexdigest
     end
 
-    def self.listen(&block)
-      listener = Listen.to(DIRECTORY) do |modified, added, removed|
+    def self.listen(directory, &block)
+      listener = Listen.to(directory) do |modified, added, removed|
         puts "modified absolute path: #{modified}"
         puts "added absolute path: #{added}"
         puts "removed absolute path: #{removed}"
