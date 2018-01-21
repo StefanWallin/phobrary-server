@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180110191738) do
+ActiveRecord::Schema.define(version: 20180121180446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,10 +42,12 @@ ActiveRecord::Schema.define(version: 20180110191738) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "shot_id"
+    t.bigint "folder_id"
     t.index ["createdate"], name: "index_photos_on_createdate"
     t.index ["current_filepath"], name: "index_photos_on_current_filepath"
     t.index ["digest"], name: "index_photos_on_digest"
     t.index ["filetype"], name: "index_photos_on_filetype"
+    t.index ["folder_id"], name: "index_photos_on_folder_id"
     t.index ["original_filepath"], name: "index_photos_on_original_filepath"
   end
 
@@ -62,6 +64,7 @@ ActiveRecord::Schema.define(version: 20180110191738) do
     t.index ["date"], name: "index_shots_on_date"
   end
 
+  add_foreign_key "photos", "folders"
   add_foreign_key "photos", "shots"
   add_foreign_key "shots", "cameras"
 end

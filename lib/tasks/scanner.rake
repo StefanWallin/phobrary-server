@@ -12,7 +12,8 @@ namespace :phobrary do
 
   desc 'Run clustering algorithm'
   task :cluster => :environment do
-    Phobrary::Commands::Cluster.jenks_moments
+    Phobrary::Commands::Cluster.cosine_distance
+    # Phobrary::Commands::Cluster.jenks_moments
   end
 
   desc 'Scan photo library directories'
@@ -26,6 +27,7 @@ namespace :phobrary do
   def index_directories(directory)
     walk(directory, 0, 0) do |folderpath, depth, folder_id|
       localpath = folderpath.split(directory + '/')[1]
+      localpath = File.dirname('') if localpath.nil?
       Folder.find_or_create_by!(path: localpath, depth: depth, folder_id: folder_id )
     end
   end
@@ -93,16 +95,13 @@ namespace :phobrary do
   end
 
   def find_or_create_folder(exif)
-    pathname = File.join('root',exif[:filepath])
-    folder = nil
+    pathname = exif[:filepath]
+    result_folder = nil
     folders = File.dirname(pathname).split(File::SEPARATOR)
     folders.each_with_index do |folder, index|
-      folder = Folder.find_or_create_by!(
-        path: folder,
-        depth: index,
-      )
+      result_folder = Folder.find_by!(path: folder)
     end
-    folder
+    result_folder
   end
 
 
@@ -135,9 +134,11 @@ namespace :phobrary do
       original_filepath: exif[:filepath],
       current_filepath: exif[:filepath],
       filetype: exif[:filetype],
+      createdate: exif[:createdate],
       modifydate: exif[:modifydate],
       imagewidth: exif[:imagewidth],
-      imageheight: exif[:imageheight]
+      imageheight: exif[:imageheight],
+      folder_id: folder.id
     )
   end
 

@@ -15,6 +15,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # App & Clustering
 gem 'onedclusterer'
+gem 'measurable'
 
 # CLI
 gem 'mini_exiftool_vendored'
