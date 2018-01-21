@@ -31,6 +31,7 @@
 <table border=1>
   <thead>
     <tr>
+      <th>Thumb</th>
       <th>Digest</th>
       <th>Filetype</th>
       <th>Original filepath</th>
@@ -48,6 +49,7 @@
   <tbody>
     <% @photos.each do |photo| %>
       <tr>
+        <td><img src="<%= thumb_path(photo.current_filepath) %>" /></td>
         <td><%= photo.digest %></td>
         <td><%= photo.filetype %></td>
         <td><%= photo.original_filepath %></td>

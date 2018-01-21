@@ -66,15 +66,26 @@ namespace :phobrary do
   def generate_thumb_nail(source_dir, target_dir, photo)
     path = photo[:current_filepath]
     thumb_path = thumbnail_path(File.join(target_dir, path))
-    puts "PLUTT #{thumb_path}"
     return if File.exist? thumb_path
-    puts "PLATT #{thumb_path}"
+    create_nested_folder(File.dirname(thumb_path))
     original_path = File.join(source_dir, path)
-    puts URI.escape(original_path)
     original = MiniMagick::Image.open original_path
     original.resize '200x200'
-    puts "Writing thumb #{thumb_path}"
     original.write thumb_path
+  end
+
+  def create_nested_folder(dirname)
+    folders = dirname.split(File::SEPARATOR)
+    path = folders.shift
+    Dir.mkdir(path) if valid_path?(path)
+    folders.each do |folder|
+      path = File.join(path, folder)
+      Dir.mkdir(path) if valid_path?(path)
+    end
+  end
+
+  def valid_path?(path)
+    !(path == '..' || path == '.' || path == '' || File.directory?(path))
   end
 
   def thumbnail_path(path)
@@ -84,7 +95,7 @@ namespace :phobrary do
   def find_or_create_folder(exif)
     pathname = File.join('root',exif[:filepath])
     folder = nil
-    folders = File.dirname(pathname).split(File::PATH_SEPARATOR)
+    folders = File.dirname(pathname).split(File::SEPARATOR)
     folders.each_with_index do |folder, index|
       folder = Folder.find_or_create_by!(
         path: folder,
