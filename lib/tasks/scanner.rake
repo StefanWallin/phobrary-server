@@ -17,17 +17,16 @@ namespace :phobrary do
 
   desc 'Scan photo library directories'
   task :scan => :environment do
-    directory = File.join('..','library','source')
-    index_directories(directory)
-    index_photos(directory)
-    output_newline_for_cli
+    source_library_directory = File.join('..','library','source')
+    target_library_directory = File.join('..','library','target')
+    index_directories(source_library_directory)
+    index_photos(source_library_directory, target_library_directory)
   end
 
   def index_directories(directory)
     walk(directory, 0, 0) do |folderpath, depth, folder_id|
       localpath = folderpath.split(directory + '/')[1]
       Folder.find_or_create_by!(path: localpath, depth: depth, folder_id: folder_id )
-      puts "#{depth} - #{folder_id} - #{localpath}"
     end
   end
 
@@ -50,24 +49,49 @@ namespace :phobrary do
     end
   end
 
-  def index_photos(directory)
-    Phobrary::Commands::Scan.each_image(directory) do |exif, index, count|
-      printf("\rProcessing file %d of %d", index, count)
+  def index_photos(source_dir, target_dir)
+    Phobrary::Commands::Scan.each_image(source_dir) do |exif, index, count|
+      printf("\rProcessing file %d of %d - folder", index, count)
       folder = find_or_create_folder(exif)
+      printf("\rProcessing file %d of %d - duplicates", index, count)
       shot = find_or_create_shot(exif)
-      photo = create_photo(exif, shot)
+      printf("\rProcessing file %d of %d - exif", index, count)
+      photo = create_photo(exif, shot, folder)
+      printf("\rProcessing file %d of %d - thumbnail ", index, count)
+      generate_thumb_nail(source_dir, target_dir, photo)
     end
+    output_newline_for_cli
+  end
+
+  def generate_thumb_nail(source_dir, target_dir, photo)
+    path = photo[:current_filepath]
+    thumb_path = thumbnail_path(File.join(target_dir, path))
+    puts "PLUTT #{thumb_path}"
+    return if File.exist? thumb_path
+    puts "PLATT #{thumb_path}"
+    original_path = File.join(source_dir, path)
+    puts URI.escape(original_path)
+    original = MiniMagick::Image.open original_path
+    original.resize '200x200'
+    puts "Writing thumb #{thumb_path}"
+    original.write thumb_path
+  end
+
+  def thumbnail_path(path)
+    URI.escape path.gsub(/\.jp(e)?g/i, '.thumb.jpg')
   end
 
   def find_or_create_folder(exif)
-    folders = File.dirname("root/#{localpath}").split(File.PATH_SEPARATOR)
-    depth = 0
-    folders.each do |folder|
-      Folder.find_or_create_by!(
-        path
+    pathname = File.join('root',exif[:filepath])
+    folder = nil
+    folders = File.dirname(pathname).split(File::PATH_SEPARATOR)
+    folders.each_with_index do |folder, index|
+      folder = Folder.find_or_create_by!(
+        path: folder,
+        depth: index,
       )
     end
-    puts folderpath
+    folder
   end
 
 
@@ -92,7 +116,8 @@ namespace :phobrary do
     shot
   end
 
-  def create_photo(exif, shot)
+  def create_photo(exif, shot, folder)
+    # puts "Folder linking not yet implemented"
     Photo.find_or_create_by!(
       shot: shot,
       digest: exif[:digest],

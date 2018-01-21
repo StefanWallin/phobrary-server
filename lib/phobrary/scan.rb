@@ -7,8 +7,10 @@ module Phobrary::Commands
     def self.each_image(directory, &block)
       nodes = Dir.glob(File.join(directory, '**', '*')) # TODO: BAD PERF, CHUNK IT
       nodes.each_with_index do |nodepath, index|
+        puts nodepath
         localpath = nodepath.split(directory + '/')[1]
-        next unless nodepath =~ /\A.*\.jp(e)?g\z/i # Only include jpgs
+        next if localpath =~ /\.thumb\.jpg\z/ # Avoid indexing thumbs as photos
+        next unless localpath =~ /\.jp(e)?g\z/i # Only include jpgs
         block.call(self.extract_exif_data(nodepath, localpath), index + 1, nodes.length)
       end
     end
