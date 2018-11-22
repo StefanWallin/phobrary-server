@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
 end
 
 # rails
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.8'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.4'
