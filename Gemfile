@@ -7,7 +7,7 @@ end
 # rails
 gem 'jbuilder', '~> 2.8'
 gem 'pg', '~> 1.1'
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.1.4'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
