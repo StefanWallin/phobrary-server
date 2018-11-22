@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Photos</h1>
 <h2>Stats</h2>
 <p>
   Photos: <%= @n_photos %><br />
@@ -49,7 +48,7 @@
   <tbody>
     <% @photos.each do |photo| %>
       <tr>
-        <td><img src="<%= thumb_path(photo.current_filepath) %>" /></td>
+        <td><img src="<%= thumb_path(photo) %>" /></td>
         <td><%= photo.digest %></td>
         <td><%= photo.filetype %></td>
         <td><%= photo.original_filepath %></td>

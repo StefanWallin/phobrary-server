@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180121180446) do
+ActiveRecord::Schema.define(version: 20180124182608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,12 @@ ActiveRecord::Schema.define(version: 20180121180446) do
     t.string "model"
     t.index ["make"], name: "index_cameras_on_make"
     t.index ["model"], name: "index_cameras_on_model"
+  end
+
+  create_table "clusters", force: :cascade do |t|
+    t.integer "members", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "folders", force: :cascade do |t|

@@ -3,12 +3,19 @@
   <head>
     <title>Phobrary</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="wrapper">
+      <div class="container">
+        <header>
+          <h1>Phobrary</h1>
+          <h2>A smart photo library on your own machine</h2>
+        </header>
+        <%= yield %>
+      </div>
+    </div>
+    <%= javascript_pack_tag 'application' %>
   </body>
 </html>

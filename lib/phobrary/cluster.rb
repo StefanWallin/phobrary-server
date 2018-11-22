@@ -17,22 +17,15 @@ module Phobrary::Commands
         puts DateTime.strptime(b.to_s, '%s').iso8601
       end
       p "============"
-
     end
 
     def self.cosine_distance
+      photo_ids = []
       photos = []
       Photo.eager_load(:folder, :shot).find_each do |photo|
-        photos.push({
-          photo_id: photo.id,
-          shot: photo.shot.id,
-          lat: photo.shot.gpslongitude,
-          long: photo.shot.gpslatitude,
-          create_date: photo.createdate.to_i,
-          folder_index: photo.folder.folder_id
-        })
+        photo_ids.push(photo.id)
+        photos.push([photo.createdate.to_i, photo.folder.folder_id])
       end
-      pp photos
     end
   end
 end

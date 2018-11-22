@@ -67,7 +67,7 @@ namespace :phobrary do
 
   def generate_thumb_nail(source_dir, target_dir, photo)
     path = photo[:current_filepath]
-    thumb_path = thumbnail_path(File.join(target_dir, path))
+    thumb_path = thumbnail_path(target_dir, photo)
     return if File.exist? thumb_path
     create_nested_folder(File.dirname(thumb_path))
     original_path = File.join(source_dir, path)
@@ -90,8 +90,9 @@ namespace :phobrary do
     !(path == '..' || path == '.' || path == '' || File.directory?(path))
   end
 
-  def thumbnail_path(path)
-    URI.escape path.gsub(/\.jp(e)?g/i, '.thumb.jpg')
+  def thumbnail_path(target_dir, photo)
+    filename = "#{photo[:digest]}.thumb.jpg"
+    File.join(target_dir, filename)
   end
 
   def find_or_create_folder(exif)
