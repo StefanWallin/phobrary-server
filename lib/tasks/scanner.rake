@@ -1,5 +1,5 @@
-require "#{Rails.root}/lib/phobrary/index.rb"
-require "#{Rails.root}/lib/phobrary/cluster.rb"
+require File.expand_path("../../../app/lib/phobrary/index.rb", __FILE__)
+require File.expand_path("../../../app/lib/phobrary/cluster.rb", __FILE__)
 
 namespace :phobrary do
   desc 'Clean photo library database'

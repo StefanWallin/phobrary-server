@@ -1,10 +1,12 @@
-require "#{Rails.root}/lib/phobrary/scan.rb"
+require File.expand_path("../scan.rb", __FILE__)
+
 module Phobrary::Commands
   class Index
     class << self
       def index_directories(directory)
         walk(directory, 0, 0) do |folderpath, depth, folder_id|
           localpath = folderpath.split(directory + File::SEPARATOR)[1]
+          next if localpath.present? && localpath[0] == '.'
           localpath = File.dirname('') if localpath.nil?
           Folder.find_or_create_by!(path: localpath, depth: depth, folder_id: folder_id )
         end
