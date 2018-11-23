@@ -1,5 +1,15 @@
 language: ruby
 cache: bundler
+services:
+  - postgresql
+postgres:
+  adapter: postgresql
+  database: phobrary_test
+  username: phobrary
+  password: phobrary123
+before_script:
+  - "psql -c 'create database phobrary_test;' -U phobrary"
+  - "bundle exec rails db:migrate"
 rvm:
   - 2.5.1
   - ruby-head
