@@ -20,11 +20,23 @@ module Phobrary::Commands
     end
 
     def self.cosine_distance
-      photo_ids = []
-      photos = []
+      photoIds = []
+      creationDates = []
+      folderIds = []
       Photo.eager_load(:folder, :shot).find_each do |photo|
-        photo_ids.push(photo.id)
-        photos.push([photo.createdate.to_i, photo.folder.folder_id])
+        photoIds.push(photo.id)
+        creationDates.push(photo.createdate.to_i)
+        folderIds.push(photo.folder.folder_id)
+      end
+      photoIds.each_with_index do |id_a, index_a|
+        photoIds.each_with_index do |id_b, index_b|
+          next if index_a == index_b
+          distance = Measurable.cosine_distance(
+            [creationDates[index_a]],
+            [creationDates[index_b]]
+          )
+          puts "#{id_a} #{id_b} #{distance} #{creationDates[index_a]} #{creationDates[index_b]} #{folderIds[index_a]} #{folderIds[index_b]}"
+        end
       end
     end
   end
