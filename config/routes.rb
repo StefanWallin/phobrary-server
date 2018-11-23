@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  root to: 'app#app'
+  root to: 'photos#index'
   resources :photos
 end
