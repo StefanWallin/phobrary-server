@@ -1,3 +1,47 @@
 // Place all the styles related to the App controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+figure {
+  margin: 5px;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-flow: space-between;
+}
+.gallery__item-details{
+  display: none;
+}
+
+.gallery__item {
+  display: relative;
+}
+
+.gallery__item:hover .gallery__item-details {
+  font-size: 13px;
+  line-height: 10px;
+  display:block;
+  position: absolute;
+  // bottom: 0;
+  // left: 0;
+  // top: 0;
+
+  background: #1e2d50;
+  color: #eee;
+  padding: 1em;
+}
+
+pre {
+  font-family: Monaco,Menlo,Consolas,"Courier New",monospace!important;
+  font-size: 13px;
+  line-height: 15px;
+  white-space: normal;
+  color: #d72b3f;
+  padding: 2px 3px 1px;
+  font-variant-ligatures: none;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}

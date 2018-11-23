@@ -27,46 +27,22 @@
 </table>
 
 <h2>Photos</h2>
-<table border=1>
-  <thead>
-    <tr>
-      <th>Thumb</th>
-      <th>Digest</th>
-      <th>Filetype</th>
-      <th>Original filepath</th>
-      <th>Current filepath</th>
-      <th>Modifydate</th>
-      <th>Createdate</th>
-      <th>Datesource</th>
-      <th>Imagewidth</th>
-      <th>Imageheight</th>
-      <th>Shot</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @photos.each do |photo| %>
-      <tr>
-        <td><img src="<%= thumb_path(photo) %>" /></td>
-        <td><%= photo.digest %></td>
-        <td><%= photo.filetype %></td>
-        <td><%= photo.original_filepath %></td>
-        <td><%= photo.current_filepath %></td>
-        <td><%= photo.modifydate %></td>
-        <td><%= photo.shot&.date %></td>
-        <td><%= photo.shot&.date_source %></td>
-        <td><%= photo.imagewidth %></td>
-        <td><%= photo.imageheight %></td>
-        <td><%= photo.shot_id %></td>
-        <td><%= link_to 'Show', photo %></td>
-        <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
-        <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Photo', new_photo_path %>
+<div class="gallery">
+  <% @photos.each do |photo| %>
+    <figure class="gallery__item">
+      <img src="<%= thumb_path(photo) %>" />
+      <figcaption class="gallery__item-details">
+        <strong>Shot:</strong> <pre><%= photo.shot_id %></pre>
+        <strong>Digest:</strong> <pre><%= photo.digest %></pre>
+        <strong>Filetype:</strong> <pre><%= photo.filetype %></pre>
+        <strong>Original </strong> <pre><%= photo.original_filepath %></pre>
+        <strong>Current </strong> <pre><%= photo.current_filepath %></pre>
+        <strong>Modifydate:</strong> <pre><%= photo.modifydate %></pre>
+        <strong>Createdate:</strong> <pre><%= photo.shot&.date %></pre>
+        <strong>Datesource:</strong> <pre><%= photo.shot&.date_source %></pre>
+        <strong>Imagewidth:</strong> <pre><%= photo.imagewidth %></pre>
+        <strong>Imageheight:</strong> <pre><%= photo.imageheight %></pre>
+      </figcaption>
+    </figure>
+  <% end %>
+</div>

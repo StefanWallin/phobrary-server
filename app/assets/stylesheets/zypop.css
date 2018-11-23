@@ -86,12 +86,6 @@ main {
   display: block; }
 
 /**
- * Add the correct margin in IE 8.
- */
-figure {
-  margin: 1em 40px; }
-
-/**
  * 1. Add the correct box sizing in Firefox.
  * 2. Show the overflow in Edge and IE.
  */
@@ -101,16 +95,6 @@ hr {
   height: 0;
   /* 1 */
   overflow: visible;
-  /* 2 */ }
-
-/**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
-pre {
-  font-family: monospace, monospace;
-  /* 1 */
-  font-size: 1em;
   /* 2 */ }
 
 /* Text-level semantics
@@ -441,7 +425,6 @@ body {
   font-weight: 300; }
 
 .wrapper {
-  width: 35%;
   float: left;
   display: flex;
   flex-direction: column;
@@ -590,22 +573,14 @@ Social Icons
 /**
 Responsive
 **/
-@media screen and (max-width: 1400px) {
   .wrapper {
-    width: 60%; } }
-@media screen and (max-width: 1200px) {
-  .wrapper {
-    width: 70%; } }
-@media screen and (max-width: 1000px) {
-  .wrapper {
-    width: 80%; } }
-@media screen and (max-width: 850px) {
-  .wrapper {
+    width: 95%;
     float: none;
     width: auto; }
 
   .container {
-    border-radius: 0 !important; } }
+    border-radius: 0 !important; }
+}
 @media screen and (max-width: 700px) {
   body {
     font-size: 0.9em; }
