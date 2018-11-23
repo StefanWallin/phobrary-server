@@ -1,0 +1,10 @@
+language: ruby
+cache: bundler
+rvm:
+  - 2.5.1
+  - ruby-head
+install:
+  - gem install bundler
+  - bundle install
+script:
+  - bundle exec rake test
