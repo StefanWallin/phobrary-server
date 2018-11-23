@@ -1,14 +1,16 @@
 language: ruby
 cache: bundler
+env:
+  - DB_USER=postgres
+  - DB_PASSWORD=
 services:
   - postgresql
 postgres:
   adapter: postgresql
   database: phobrary_test
-  username: phobrary
-  password: phobrary123
+  username: postgres
 before_script:
-  - "psql -c 'create database phobrary_test;' -U phobrary"
+  - "psql -c 'create database phobrary_test;' -U postgres"
   - "bundle exec rails db:migrate"
 rvm:
   - 2.5.1
