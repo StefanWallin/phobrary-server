@@ -525,11 +525,19 @@ header h1 {
   line-height: 3.75rem; }
 
 header h2 {
-  font-size: 1.5rem;
+  display: inline-block;
+  font-size: 1.45rem;
+  line-height: 1.15em;
   font-weight: 400;
   margin-bottom: 0;
+  margin-left: 0.2em;
   text-transform: uppercase;
-  color: #c8c8c8; }
+  border-top: 1px solid #d72b3f;
+  padding: 0;
+  color: #c8c8c8;
+  position: relative;
+  top: -0.15em;
+}
 
 /**
 Footer
