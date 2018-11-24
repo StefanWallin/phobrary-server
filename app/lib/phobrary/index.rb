@@ -16,7 +16,7 @@ module Phobrary::Commands
         Phobrary::Commands::Scan.each_image(source_dir) do |exif, index, count|
           printf("\r                                                                                             ")
           printf("\rProcessing file %d of %d - folder", index, count)
-          folder = find_or_create_folder(exif)
+          folder = find_folder(exif)
           printf(" - duplicates", index, count)
           shot = find_or_create_shot(exif)
           printf(" - exif", index, count)
@@ -79,7 +79,7 @@ module Phobrary::Commands
         File.join(target_dir, filename)
       end
 
-      def find_or_create_folder(exif)
+      def find_folder(exif)
         pathname = exif[:filepath]
         result_folder = nil
         folders = File.dirname(pathname).split(File::SEPARATOR)
@@ -112,7 +112,6 @@ module Phobrary::Commands
       end
 
       def create_photo(exif, shot, folder)
-        # puts "Folder linking not yet implemented"
         Photo.find_or_create_by!(
           shot: shot,
           digest: exif[:digest],

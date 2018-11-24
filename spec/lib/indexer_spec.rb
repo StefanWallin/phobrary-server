@@ -68,6 +68,10 @@ RSpec.describe Phobrary::Commands::Index do
         expect(Shot.count).to eq 1
         expect(Dir.glob(File.join(target_directory, '*')).length).to eq 1
       end
+
+      it 'creates a camera when indexing' do
+        expect(Camera.count).to eq 1
+      end
     end
   end
 end
