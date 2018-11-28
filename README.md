@@ -14,7 +14,8 @@ The intention of this is to have a photo library machine that goes through multi
 ## Intended features
 - Write modified exif-data back to files
 - Re-organization of images into folder structures based on user sorting
--
+
+... and more, you can [follow the status on the project pane](https://github.com/StefanWallin/phobrary/projects/1)
 
 # Usage
 This is mainly a rails app with a rake task. If you need help to get started, see the heading **[Get started](https://github.com/StefanWallin/phobrary#get-started)** below.
