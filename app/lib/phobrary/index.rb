@@ -14,14 +14,15 @@ module Phobrary::Commands
 
       def index_photos(source_dir, target_dir)
         Phobrary::Commands::Scan.each_image(source_dir) do |exif, index, count|
+          IndexingChannel.broadcast("Processing file #{index} of #{count}")
           printf("\r                                                                                             ")
           printf("\rProcessing file %d of %d - folder", index, count)
           folder = find_folder(exif)
-          printf(" - duplicates", index, count)
+          printf(' - duplicates', index, count)
           shot = find_or_create_shot(exif)
-          printf(" - exif", index, count)
+          printf(' - exif', index, count)
           photo = create_photo(exif, shot, folder)
-          printf(" - thumbnail ", index, count)
+          printf(' - thumbnail ', index, count)
           generate_thumb_nail(source_dir, target_dir, photo)
         end
         output_newline_for_cli

@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative "../../app/lib/phobrary/index.rb"
+require_relative '../../app/lib/phobrary/index.rb'
 
 RSpec.describe Phobrary::Commands::Index do
   after(:each) do
@@ -9,6 +9,7 @@ RSpec.describe Phobrary::Commands::Index do
   describe '.index_directories' do
     context 'when indexing empty_folders_test' do
       before do
+        expect(IndexingChannel).not_to receive(:broadcast)
         index_folder 'empty_folders_test'
       end
 
@@ -45,11 +46,11 @@ RSpec.describe Phobrary::Commands::Index do
       end
 
       it 'does not index text files' do
-        expect(Photo.where('original_filepath LIKE ?', "%.txt").count).to eq 0
+        expect(Photo.where('original_filepath LIKE ?', '%.txt').count).to eq 0
       end
 
       it 'does not index gif files' do
-        expect(Photo.where('original_filepath LIKE ?', "%.gif").count).to eq 0
+        expect(Photo.where('original_filepath LIKE ?', '%.gif').count).to eq 0
       end
     end
 

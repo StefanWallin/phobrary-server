@@ -1,0 +1,15 @@
+<figure class="gallery__item">
+  <img src="<%= thumb_path(photo) %>" />
+  <figcaption class="gallery__item-details">
+    <strong>Shot:</strong> <pre><%= photo.shot_id %></pre>
+    <strong>Digest:</strong> <pre><%= photo.digest %></pre>
+    <strong>Filetype:</strong> <pre><%= photo.filetype %></pre>
+    <strong>Original </strong> <pre><%= photo.original_filepath %></pre>
+    <strong>Current </strong> <pre><%= photo.current_filepath %></pre>
+    <strong>Modifydate:</strong> <pre><%= photo.modifydate %></pre>
+    <strong>Createdate:</strong> <pre><%= photo.shot&.date %></pre>
+    <strong>Datesource:</strong> <pre><%= photo.shot&.date_source %></pre>
+    <strong>Imagewidth:</strong> <pre><%= photo.imagewidth %></pre>
+    <strong>Imageheight:</strong> <pre><%= photo.imageheight %></pre>
+  </figcaption>
+</figure>
