@@ -1,4 +1,4 @@
-![Travis CI Build Status](https://travis-ci.org/StefanWallin/phobrary.svg?branch=master)
+[![Travis CI Build Status](https://travis-ci.org/StefanWallin/phobrary.svg?branch=master)](https://travis-ci.org/StefanWallin/phobrary/builds)
 
 # Phobrary
 My own Photo Library
