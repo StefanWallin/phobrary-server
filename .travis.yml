@@ -4,6 +4,7 @@ env:
   - DB_USER=postgres DB_PASSWORD=
 services:
   - postgresql
+  - redis-server
 postgres:
   adapter: postgresql
   database: phobrary_test
