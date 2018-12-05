@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "3.5",
-    "actioncable": "^5.2.1",
+    "actioncable": "^5.2.2",
     "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
