@@ -4,7 +4,7 @@
   "dependencies": {
     "@rails/webpacker": "3.5",
     "actioncable": "^5.2.2",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.5"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"
