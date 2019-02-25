@@ -78,7 +78,7 @@ GEM
     mini_exiftool (2.9.0)
     mini_exiftool_vendored (9.2.7.v1)
       mini_exiftool (>= 1.6.0)
-    mini_magick (4.9.2)
+    mini_magick (4.9.3)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
