@@ -2,7 +2,7 @@
   "name": "phobrary",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "4.0",
     "actioncable": "^5.2.2",
     "webpack-merge": "^4.2.1"
   },
