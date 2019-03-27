@@ -13,7 +13,6 @@ before_script:
   - "psql -c 'create database phobrary_test;' -U postgres"
   - "bundle exec rails db:migrate"
 rvm:
-  - 2.5.5
   - 2.6.2
 install:
   - gem install bundler
