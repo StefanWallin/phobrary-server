@@ -6,12 +6,14 @@ end
 
 # rails
 gem 'bootsnap'
+gem 'dnssd'
 gem 'jbuilder', '~> 2.8'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.2.3'
 gem 'redis-rails'
 gem 'sass-rails', '~> 5.0'
+gem 'spawnling'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 4.0'
