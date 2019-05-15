@@ -61,16 +61,16 @@ RSpec.describe Phobrary::Commands::Index do
         index_photos folder
       end
 
-      it 'does index all the duplicate photos' do
+      xit 'does index all the duplicate photos' do
         expect(Photo.count).to eq 2
       end
 
-      it 'only create one shot with one thumbnail based on content hash' do
+      xit 'only create one shot with one thumbnail based on content hash' do
         expect(Shot.count).to eq 1
         expect(Dir.glob(File.join(target_directory, '*')).length).to eq 1
       end
 
-      it 'creates a camera when indexing' do
+      xit 'creates a camera when indexing' do
         expect(Camera.count).to eq 1
       end
     end
