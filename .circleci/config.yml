@@ -1,0 +1,172 @@
+version: 2
+
+root: &root
+  ~/phobrary-server
+
+ruby_image: &ruby_image
+  circleci/ruby:2.5.1-node-browsers
+
+postgres_image: &postgres_image
+  mdillon/postgis:10-alpine
+
+
+attach: &attach
+  attach_workspace:
+    at: *root
+
+attach_vendor: &attach_vendor
+  attach_workspace:
+    at: vendor/bundle
+
+attach_node_modules: &attach_node_modules
+  attach_workspace:
+    at: node_modules
+
+install_dnssd_h: &install_dnssd_h
+  run:
+    name: Installing Development Headers
+    command: sudo apt-get install libavahi-compat-libdnssd-dev
+
+run_bundle: &run_bundle
+  run:
+    name: Running bundle
+    command: bundle install --clean --path vendor/bundle
+
+run_npm: &run_npm
+  run:
+    name: Running npm
+    command: npm ci
+
+#####
+
+jobs:
+  checkout:
+    working_directory: *root
+    docker:
+      - image: *ruby_image
+    steps:
+      - checkout
+
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  bundle:
+    working_directory: *root
+    docker:
+      - image: *ruby_image
+        environment:
+        - RAILS_ENV=test
+        - RACK_ENV=test
+    steps:
+      - *attach
+
+      - restore_cache:
+          keys:
+            - v1_phobrary-server_bundle_{{ checksum "Gemfile.lock" }}
+            - v1_phobrary-server_bundle_
+
+      - *install_dnssd_h
+
+      - *run_bundle
+
+      - save_cache:
+          key: v1_phobrary-server_bundle_{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - persist_to_workspace:
+          root: .
+          paths: vendor/bundle
+
+  npm:
+    working_directory: *root
+    docker:
+      - image: *ruby_image
+        environment:
+        - RAILS_ENV=test
+        - RACK_ENV=test
+    steps:
+      - *attach
+
+      - restore_cache:
+          keys:
+            - v1_phobrary-server_npm_{{ checksum "package-lock.json" }}
+            - v1_phobrary-server_npm_
+
+      - *run_npm
+
+      - save_cache:
+          key: v1_phobrary-server_npm_{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      - persist_to_workspace:
+          root: .
+          paths: node_modules
+
+  test:
+    working_directory: *root
+    docker:
+      - image: *ruby_image
+        environment:
+          - RAILS_ENV=test
+          - RACK_ENV=test
+      - image: *postgres_image
+        environment:
+          - POSTGRES_DB=phobrary_test
+          - POSTGRES_USER=phobrary
+          - POSTGRES_PASSWORD=phobrary123
+    steps:
+      - *attach
+      # - *attach_vendor
+      # - *attach_node_modules
+      - *install_dnssd_h
+      - *run_bundle
+      - *run_npm
+
+      - run:
+          name: Switch timezone to Stockholm
+          command: sudo cp /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
+
+      - run:
+          name: Run webpacker
+          command: ./bin/webpack
+
+      - run:
+           name: Install latest version of Chrome
+           command: |
+             wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+             sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+             sudo apt-get update
+             sudo apt-get install google-chrome-stable
+
+      - run:
+          name: Running Rspec
+          command: |
+            bundle exec rspec --profile 10 \
+              --format RspecJunitFormatter \
+              --out /tmp/test-results/rspec.xml \
+              --format progress \
+              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - store_test_results:
+          path: /tmp/test-results
+
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - checkout
+      - bundle:
+          requires:
+            - checkout
+      - npm:
+          requires:
+            - checkout
+      - test:
+          requires:
+            - checkout
+            - bundle
+            - npm

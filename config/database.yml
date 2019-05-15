@@ -14,16 +14,14 @@ development:
   password: <%= ENV['DB_PASSWORD'] || "phobrary123" %>
   host: <%= ENV['DB_HOST'] || "localhost" %>
   port: <%= ENV['DB_PORT'] || 5432 %>
-  database: phobrary_development
 
 test:
   <<: *default
-  database: <%= ENV['DB_DATABASE'] || "phobrary_development" %>
+  database: <%= ENV['DB_DATABASE'] || "phobrary_test" %>
   username: <%= ENV['DB_USER'] || "phobrary" %>
   password: <%= ENV['DB_PASSWORD'] || "phobrary123" %>
   host: <%= ENV['DB_HOST'] || "localhost" %>
   port: <%= ENV['DB_PORT'] || 5432 %>
-  database: phobrary_test
 
 production:
   <<: *default
