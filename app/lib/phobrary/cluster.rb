@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'onedclusterer'
 
 module Phobrary::Commands
@@ -8,15 +10,15 @@ module Phobrary::Commands
         puts d
       end
       jenks = OnedClusterer::Jenks.new(dates, 7)
-      p "============"
+      p '============'
       p jenks.clusters
-      p "============"
+      p '============'
       p jenks.bounds
-      p "============"
+      p '============'
       jenks.bounds.map do |b|
         puts DateTime.strptime(b.to_s, '%s').iso8601
       end
-      p "============"
+      p '============'
     end
 
     def self.cosine_distance
@@ -31,6 +33,7 @@ module Phobrary::Commands
       photoIds.each_with_index do |id_a, index_a|
         photoIds.each_with_index do |id_b, index_b|
           next if index_a == index_b
+
           distance = Measurable.cosine_distance(
             [creationDates[index_a]],
             [creationDates[index_b]]

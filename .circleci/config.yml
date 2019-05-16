@@ -4,7 +4,7 @@ root: &root
   ~/phobrary-server
 
 ruby_image: &ruby_image
-  circleci/ruby:2.5.1-node-browsers
+  circleci/ruby:2.7.1-node-browsers
 
 postgres_image: &postgres_image
   mdillon/postgis:10-alpine
@@ -25,14 +25,16 @@ attach_node_modules: &attach_node_modules
 install_dnssd_h: &install_dnssd_h
   run:
     name: Installing Development Headers
-    command: |
-      sudo apt-get update
-      sudo apt-get install libavahi-compat-libdnssd-dev
+    command: sudo apt-get update && sudo apt-get install libavahi-compat-libdnssd-dev
 
 run_bundle: &run_bundle
   run:
     name: Running bundle
-    command: bundle install --clean --path vendor/bundle
+    command: |
+      gem install bundler -v 2.1.4
+      gem update --system
+      bundle update --bundler
+      bundle install --clean --path vendor/bundle
 
 run_npm: &run_npm
   run:
@@ -46,6 +48,8 @@ jobs:
     working_directory: *root
     docker:
       - image: *ruby_image
+        environment:
+        - BUNDLER_VERSION=2.1.4
     steps:
       - checkout
 
@@ -58,6 +62,7 @@ jobs:
     docker:
       - image: *ruby_image
         environment:
+        - BUNDLER_VERSION=2.1.4
         - RAILS_ENV=test
         - RACK_ENV=test
     steps:
@@ -114,6 +119,7 @@ jobs:
         environment:
           - RAILS_ENV=test
           - RACK_ENV=test
+          - BUNDLER_VERSION=2.1.4
       - image: *postgres_image
         environment:
           - POSTGRES_DB=phobrary_test
@@ -150,7 +156,7 @@ jobs:
               --format RspecJunitFormatter \
               --out /tmp/test-results/rspec.xml \
               --format progress \
-              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+              spec
 
       - store_test_results:
           path: /tmp/test-results

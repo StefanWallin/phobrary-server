@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require 'dnssd'
 # require 'securerandom'
 Rails.logger.info 'Forking MDNS Daemon'

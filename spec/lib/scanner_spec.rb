@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require_relative '../../app/lib/phobrary/index.rb'
 
 RSpec.describe Phobrary::Commands::Index do
-  after(:each) do
+  after do
     clean_target_directory!
   end
 
@@ -76,7 +78,6 @@ RSpec.describe Phobrary::Commands::Index do
     end
   end
 end
-
 
 def index_photos(folder_name)
   source_directory = test_folder_path folder_name

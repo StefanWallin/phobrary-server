@@ -1,4 +1,6 @@
-require File.expand_path("../scan.rb", __FILE__)
+# frozen_string_literal: true
+
+require File.expand_path('scan.rb', __dir__)
 
 module Phobrary::Commands
   class Index
@@ -7,8 +9,9 @@ module Phobrary::Commands
         walk(directory, 0, 0) do |folderpath, depth, folder_id|
           localpath = folderpath.split(directory + File::SEPARATOR)[1]
           next if localpath.present? && localpath[0] == '.'
+
           localpath = File.dirname('') if localpath.nil?
-          Folder.find_or_create_by!(path: localpath, depth: depth, folder_id: folder_id )
+          Folder.find_or_create_by!(path: localpath, depth: depth, folder_id: folder_id)
         end
       end
 
@@ -32,28 +35,28 @@ module Phobrary::Commands
 
       def walk(start, depth, folder_id, &folderprocessor)
         if depth.zero?
-          folderprocessor.call(start, depth, folder_id)
+          yield(start, depth, folder_id)
           folder_id = "100#{folder_id}".to_i
           depth = depth += 1
         end
         Dir.foreach(start) do |x|
           path = File.join(start, x)
-          if x == "." or x == ".."
+          if (x == '.') || (x == '..')
             next
           elsif File.directory?(path)
-            folderprocessor.call(path, depth, folder_id)
+            yield(path, depth, folder_id)
             nextlevel_folder_id = "#{folder_id}000".to_i
             walk(path, depth + 1, nextlevel_folder_id, &folderprocessor)
-            folder_id = folder_id + 1
+            folder_id += 1
           end
         end
       end
-
 
       def generate_thumb_nail(source_dir, target_dir, photo)
         path = photo[:current_filepath]
         thumb_path = thumbnail_path(target_dir, photo)
         return if File.exist? thumb_path
+
         create_nested_folder(File.dirname(thumb_path))
         original_path = File.join(source_dir, path)
         original = MiniMagick::Image.open original_path
@@ -84,17 +87,17 @@ module Phobrary::Commands
         pathname = exif[:filepath]
         result_folder = nil
         folders = File.dirname(pathname).split(File::SEPARATOR)
-        folders.each_with_index do |folder, index|
+        folders.each_with_index do |folder, _index|
           result_folder = Folder.find_by!(path: folder)
         end
         result_folder
       end
 
-
       def find_or_create_camera(exif)
         return nil if exif.nil?
         return nil if exif[:make].nil? && exif[:model].nil?
         return nil if exif[:make].empty? && exif[:model].empty?
+
         Camera.find_or_create_by!(make: exif[:make], model: exif[:model])
       end
 
@@ -109,6 +112,7 @@ module Phobrary::Commands
           date_source: exif[:datesource]
         )
         raise "Shot was not created for photo: #{exif[:filepath]}" if shot.nil?
+
         shot
       end
 

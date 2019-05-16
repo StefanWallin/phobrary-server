@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IndexingChannel < ApplicationCable::Channel
   CHANNEL_NAME = 'indexing'
 
