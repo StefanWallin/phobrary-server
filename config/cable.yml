@@ -1,15 +1,12 @@
-default: &default
-  adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-
 development:
-  <<: *default
+  adapter: redis
   channel_prefix: phobrary_development
 
 test:
-  <<: *default
+  adapter: test
   channel_prefix: phobrary_test
 
 production:
-  <<: *default
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
   channel_prefix: phobrary_production

@@ -26,7 +26,7 @@ const onLoad= () => {
 
 
   const cable = ActionCable.createConsumer('ws://localhost:3000/cable')
-  this.sub = cable.subscriptions.create('IndexingChannel', {
+  let sub = cable.subscriptions.create('IndexingChannel', {
     received: updateInformer
   })
 
