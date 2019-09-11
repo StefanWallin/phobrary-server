@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   namespace :api do
-    namespace :v1 do
-      resources :sessions, only: :create
+    namespace :sessions do
+      namespace :v1 do
+        post '/' => 'sessions#create'
+      end
     end
   end
 
