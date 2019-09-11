@@ -25,9 +25,9 @@ attach_node_modules: &attach_node_modules
 install_dnssd_h: &install_dnssd_h
   run:
     name: Installing Development Headers
-    commands:
-      - sudo apt-get update
-      - sudo apt-get install libavahi-compat-libdnssd-dev
+    command: |
+      sudo apt-get update
+      sudo apt-get install libavahi-compat-libdnssd-dev
 
 run_bundle: &run_bundle
   run:
