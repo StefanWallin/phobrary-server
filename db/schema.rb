@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_11_173033) do
+ActiveRecord::Schema.define(version: 2019_09_25_203817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,13 @@ ActiveRecord::Schema.define(version: 2019_09_11_173033) do
     t.datetime "updated_at", null: false
     t.string "date_source"
     t.index ["date"], name: "index_shots_on_date"
+  end
+
+  create_table "unprocessed_files", force: :cascade do |t|
+    t.string "file"
+    t.string "metadata"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "photos", "folders"
