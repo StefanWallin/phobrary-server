@@ -1,3 +1,3 @@
 class UnprocessedFile < ApplicationRecord
-  mount_uploader :file, MediaFileUploader
+  has_one_attached :raw_file
 end

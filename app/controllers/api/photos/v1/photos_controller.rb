@@ -3,19 +3,17 @@ module Api
     module V1
       class PhotosController < ApiController
         def create
-          @file = UnprocessedFile.new(file_params)
-          if @file.save
+          unprocessed = UnprocessedFile.create!(file_params)
+          unprocessed.raw_file.attach(params[:file])
+          if unprocessed.save!
             head 200
           else
-            render json: @file.errors, status: :unprocessable_entity
+            render json: unprocessed.errors, status: :unprocessable_entity
           end
         end
 
         def file_params
-          {
-            file: params[:file],
-            metadata: params[:metadata]
-          }
+          params.permit(:metadata, :file)
         end
       end
     end

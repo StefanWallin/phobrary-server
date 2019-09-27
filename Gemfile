@@ -29,7 +29,7 @@ gem 'mini_exiftool'
 gem 'mini_magick'
 
 # File Upload
-gem 'carrierwave'
+# gem 'carrierwave'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
