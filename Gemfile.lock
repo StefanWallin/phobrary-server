@@ -108,13 +108,13 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     msgpack (1.3.1)
-    nio4r (2.5.1)
+    nio4r (2.5.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     onedclusterer (0.2.0)
     pg (1.1.4)
     public_suffix (4.0.1)
-    puma (4.1.1)
+    puma (4.3.1)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-proxy (0.6.5)
@@ -252,7 +252,7 @@ DEPENDENCIES
   mini_magick
   onedclusterer
   pg (~> 1.1)
-  puma (~> 4.1)
+  puma (~> 4.3)
   rails (~> 6.0.0)
   redis-rails
   rspec-rails (~> 3.8)
