@@ -227,6 +227,8 @@ GEM
     ruby-vips (2.0.17)
       ffi (~> 1.9)
     ruby_dep (1.5.0)
+    sass-rails (6.0.0)
+      sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -235,6 +237,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    semantic_range (2.3.1)
     spawnling (2.1.6)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -264,10 +267,11 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (4.3.0)
-      activesupport (>= 4.2)
+    webpacker (6.0.0.pre.2)
+      activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
-      railties (>= 4.2)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -299,14 +303,14 @@ DEPENDENCIES
   rubocop-performance (~> 1.5.0)
   rubocop-rails (~> 2.3.2)
   rubocop-rspec (~> 1.36.0)
-  sassc-rails
+  sass-rails (~> 6.0)
   spawnling (~> 2.1.6)
   spring (~> 2.0.2)
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
   uglifier (>= 1.3.0)
   webmock (~> 3.7)
-  webpacker (~> 4.0)
+  webpacker (~> 6.0.0.pre.beta.6)
 
 BUNDLED WITH
    2.1.4
