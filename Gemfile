@@ -42,7 +42,7 @@ gem 'rotp'
 gem 'carrierwave'
 
 group :development, :test do
-  gem 'byebug', '~> 11.0.1'
+  gem 'byebug', '~> 11.1.3'
   gem 'rubocop-performance', '~> 1.5.0'
   gem 'rubocop-rails', '~> 2.3.2'
   gem 'rubocop-rspec', '~> 1.36.0'
