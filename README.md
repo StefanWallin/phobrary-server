@@ -1,4 +1,5 @@
 [![StefanWallin/phobrary-server Build Status](https://circleci.com/gh/StefanWallin/phobrary-server.svg?style=svg)](https://circleci.com/gh/StefanWallin/phobrary-server)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=StefanWallin/phobrary-server)](https://dependabot.com)
 
 
 # Phobrary
