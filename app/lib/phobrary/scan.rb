@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'listen'
 require 'mini_exiftool'
 require 'byebug'
@@ -9,15 +11,16 @@ module Phobrary
         nodes = Dir.glob(File.join(directory, '**', '*')) # TODO: BAD PERF, CHUNK IT
         nodes.each_with_index do |nodepath, index|
           localpath = nodepath.split(directory + '/')[1]
-          next if localpath =~ /\.thumb\.jpg\z/ # Avoid indexing thumbs as photos
-          next unless localpath =~ /\.jp(e)?g\z/i # Only include jpgs
-          block.call(self.extract_exif_data(nodepath, localpath), index + 1, nodes.length)
+          next if /\.thumb\.jpg\z/.match?(localpath) # Avoid indexing thumbs as photos
+          next unless /\.jp(e)?g\z/i.match?(localpath) # Only include jpgs
+
+          block.call(extract_exif_data(nodepath, localpath), index + 1, nodes.length)
         end
       end
 
       def self.extract_exif_data(filepath, localpath)
         photo = MiniExiftool.new(filepath)
-        date = self.extract_dates(photo, filepath)
+        date = extract_dates(photo, filepath)
         {
           fullpath: filepath,
           filepath: localpath,
@@ -32,7 +35,7 @@ module Phobrary
           imageheight: photo.imageheight,
           gpslatitude: photo.gpslatitude,
           gpslongitude: photo.gpslongitude,
-          digest: self.digest_file(filepath)
+          digest: digest_file(filepath)
         }
       end
 
@@ -57,12 +60,12 @@ module Phobrary
         Digest::MD5.file(filepath).hexdigest
       end
 
-      def self.listen(directory, &block)
+      def self.listen(directory)
         listener = Listen.to(directory) do |modified, added, removed|
           puts "modified absolute path: #{modified}"
           puts "added absolute path: #{added}"
           puts "removed absolute path: #{removed}"
-          puts "NOT YET IMPLEMENTED"
+          puts 'NOT YET IMPLEMENTED'
         end
         listener.start # not blocking
         sleep

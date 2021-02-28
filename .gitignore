@@ -25,3 +25,12 @@ yarn-error.log*
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+.DS_Store
+/config.yml
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
