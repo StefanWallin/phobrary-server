@@ -7,10 +7,10 @@ git_source(:github) do |repo_name|
 end
 
 # rails & storage
-gem 'bootsnap', '~> 1.4.4'
+gem 'bootsnap', '~> 1.7.2'
 gem 'jbuilder', '~> 2.9'
 gem 'pg', '~> 1.1'
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 5.2.1'
 gem 'rails', '~> 6.1.3'
 gem 'redis-rails'
 
@@ -32,25 +32,25 @@ gem 'onedclusterer', '~> 0.2.0'
 # CLI
 gem 'mini_exiftool', '~> 2.10.0'
 gem 'mini_exiftool_vendored', '9.2.7.v1'
-gem 'mini_magick', '~> 4.9.3'
+gem 'mini_magick', '~> 4.11.0'
 
 # Auth via TOTP (& QR)
-gem 'rqrcode', '~> 1.1.1'
+gem 'rqrcode', '~> 1.2.0'
 gem 'rotp'
 
 # File Upload
 gem 'carrierwave'
 
 group :development, :test do
-  gem 'byebug', '~> 11.0.1'
-  gem 'rubocop-performance', '~> 1.5.0'
-  gem 'rubocop-rails', '~> 2.3.2'
+  gem 'byebug', '~> 11.1.3'
+  gem 'rubocop-performance', '~> 1.9.2'
+  gem 'rubocop-rails', '~> 2.9.1'
   gem 'rubocop-rspec', '~> 2.2.0'
 end
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.5'
-  gem 'spring', '~> 2.0.2'
+  gem 'spring', '~> 2.1.1'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
