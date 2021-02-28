@@ -11,7 +11,7 @@ gem 'bootsnap', '~> 1.4.4'
 gem 'jbuilder', '~> 2.9'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 4.1'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.3'
 gem 'redis-rails'
 
 # Frontend
@@ -55,7 +55,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 4.0'
+  gem 'rspec-rails', '~> 4.0.2'
   gem 'rspec_junit_formatter', '0.4.1'
   gem 'webmock', '~> 3.7'
 end
