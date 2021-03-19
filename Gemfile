@@ -55,7 +55,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 4.0.2'
+  gem 'rspec-rails', '~> 5.0.1'
   gem 'rspec_junit_formatter', '0.4.1'
   gem 'webmock', '~> 3.7'
 end
