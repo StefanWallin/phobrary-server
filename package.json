@@ -2,7 +2,7 @@
   "name": "phobrary",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^6.0.0-beta.6",
+    "@rails/webpacker": "^6.0.0-pre.2",
     "actioncable": "^5.2.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
