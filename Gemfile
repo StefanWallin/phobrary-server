@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 # rails & storage
-gem 'bootsnap', '~> 1.7.2'
+gem 'bootsnap', '~> 1.7.5'
 gem 'jbuilder', '~> 2.9'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.2.1'
