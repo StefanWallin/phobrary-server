@@ -45,7 +45,7 @@ group :development, :test do
   gem 'byebug', '~> 11.1.3'
   gem 'rubocop-performance', '~> 1.9.2'
   gem 'rubocop-rails', '~> 2.9.1'
-  gem 'rubocop-rspec', '~> 2.2.0'
+  gem 'rubocop-rspec', '~> 2.4.0'
 end
 
 group :development do
