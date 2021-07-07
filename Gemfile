@@ -43,7 +43,7 @@ gem 'carrierwave'
 
 group :development, :test do
   gem 'byebug', '~> 11.1.3'
-  gem 'rubocop-performance', '~> 1.9.2'
+  gem 'rubocop-performance', '~> 1.11.4'
   gem 'rubocop-rails', '~> 2.9.1'
   gem 'rubocop-rspec', '~> 2.2.0'
 end
