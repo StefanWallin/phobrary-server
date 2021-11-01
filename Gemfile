@@ -11,7 +11,7 @@ gem 'bootsnap', '~> 1.7.2'
 gem 'jbuilder', '~> 2.9'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.2.1'
-gem 'rails', '~> 6.1.3'
+gem 'rails', '~> 6.1.4'
 gem 'redis-rails'
 
 # Frontend
