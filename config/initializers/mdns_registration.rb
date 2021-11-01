@@ -3,6 +3,7 @@
 # require 'dnssd'
 # require 'securerandom'
 Rails.logger.info 'Forking MDNS Daemon'
+Spawnling.logger = Rails.logger
 Spawnling.new(method: :fork, kill: true, argv: 'phobrary_mdns_daemon') do
   Rails.logger.info 'Forked'
   hostname = Socket.gethostname

@@ -40,20 +40,34 @@ Clone this repo to your computer using your terminal emulator like so:
   cd phobrary
 ```
 
+## Install os level library dependencies
+First you need to make sure you have the required libraries:
+
+### Mac
+```
+  brew install shared-mime-info
+  brew install readline # Maybe?
+  brew install dns-sd # Probably!?
+```
+
 ## Ruby version
 Install ruby version listed in the file `.ruby-version`. I recommend using the `rbenv` tool for that. After installing `rbenv` and `rbenv-build` it can be done like this:
 ```
 rbenv install `cat .ruby-version`
 ```
 
-## Install dependencies
+
+
+## Install app level library dependencies
 To get this app running you need to install bundler to manage your dependencies. You can do this from your terminal with this command:
 ```
   gem install bundler
 ```
 
 Then, run this command in your terminal so bundler can install the needed dependency libraries:
-`bundle install`
+```
+  bundle install
+```
 
 ## Database setup
 This software needs a postgresql database setup. You can search the internet for how to do this. If you are on a Mac, I recommend using homebrew to install postgres. Once your database is installed you need to have a postgres user setup, that can be done like so:
