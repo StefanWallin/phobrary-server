@@ -29,7 +29,7 @@ class ApiController < ApplicationController
 
 
   def current_session
-    @session ||= Session.find_by(access_token: @access_token)
+    @session ||= Session.find_by(access_token: access_token)
   end
 
   def access_token

@@ -39,7 +39,7 @@ gem 'rqrcode', '~> 1.2.0'
 gem 'rotp'
 
 # File Upload
-gem 'carrierwave'
+gem 'carrierwave' # backend upload?
 
 group :development, :test do
   gem 'byebug', '~> 11.1.3'

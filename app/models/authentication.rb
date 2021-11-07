@@ -26,6 +26,9 @@ class Authentication
     return false if session.nil?
     return false if session.expired?
 
+    session.update_columns(
+      active_at: Time.current
+    )
     true
   end
 

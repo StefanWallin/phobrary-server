@@ -6,6 +6,6 @@ class Session < ApplicationRecord
   validates :access_token, presence: true
 
   def expired?
-    expired || (active_at + 1.month) < DateTime.now
+    expired || active_at.presence && (active_at + 1.month) < DateTime.now
   end
 end
