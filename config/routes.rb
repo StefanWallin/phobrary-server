@@ -15,10 +15,10 @@ Rails.application.routes.draw do
       namespace :v1 do
         # Implements the tus.io file upload protocol with version 1.0.0:
         # https://github.com/tus/tus-resumable-upload-protocol
-        match '/', to: 'files#options', via: :options
-        match '/', to: 'files#create', via: :post
-        match '/:slug', to: 'files#status', via: :head
-        match '/:slug', to: 'files#update', via: :patch
+        match '/', to: 'files#options', via: :options # Core protocol
+        match '/:slug', to: 'files#status', via: :head # Core protocol
+        match '/:slug', to: 'files#update', via: :patch # Core protocol
+        match '/', to: 'files#create', via: :post # Implements the 'creation' extension
       end
     end
     namespace :photos do

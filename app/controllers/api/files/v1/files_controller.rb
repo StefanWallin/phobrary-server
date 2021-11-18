@@ -15,7 +15,7 @@ module Api
           head 200
         end
 
-        def create
+        def create # Implements the 'Creation' extension
           head 200
         end
 
