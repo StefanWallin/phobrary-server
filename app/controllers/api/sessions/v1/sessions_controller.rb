@@ -4,19 +4,19 @@ module Api
   module Sessions
     module V1
       class SessionsController < ApiController
-        skip_before_action :verify_authenticity_token, only: :create
-        skip_before_action :ensure_session!, only: :create
-        skip_before_action :ensure_totp!, only: :create
+        before_action :ensure_device!, only: :create
         before_action :ensure_auth_attempt!, only: :create
+        skip_before_action :ensure_authenticated!, only: :create
 
         def create
-          session = Authentication.create!(@auth_attempt, @device)
+          session = Authentication.create!(@auth_attempt, current_device)
           render json: {
             status: 'ok',
             access_token: session.access_token,
-            secret: @device.secret
+            secret: current_device.secret
           }, status: 201
-        rescue Authentication::Unauthorized
+        rescue Authentication::Unauthorized => e
+          log_exception(self.class, e)
           render json: { status: 'unauthorized' }, status: :unauthorized
         end
 

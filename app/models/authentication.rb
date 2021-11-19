@@ -22,22 +22,21 @@ class Authentication
     session
   end
 
-  def self.authorized?(session)
+  def self.valid_session?(session)
     return false if session.nil?
     return false if session.expired?
 
     true
   end
 
-  def self.authenticated?(totp, device)
-    @verified ||= self.verify_otp(totp, device)
-  end
+  def self.valid_totp?(totp, device)
+    return false if totp.blank?
 
-  def self.verify_otp(totp, device)
-    rotp = ROTP::TOTP.new(device.secret)
-    rotp.verify(totp, drift_behind: 15)
+    @verified ||= begin 
+      rotp = ROTP::TOTP.new(device.secret)
+      rotp.verify(totp, drift_behind: 15)
+    end
   end
-
   class Unauthenticated < StandardError; end
   class Unauthorized < StandardError; end
 end

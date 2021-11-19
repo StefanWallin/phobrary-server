@@ -40,6 +40,7 @@ gem 'rotp'
 
 # File Upload
 gem 'carrierwave'
+gem "tus-server", "~> 2.3"
 
 group :development, :test do
   gem 'byebug', '~> 11.1.3'

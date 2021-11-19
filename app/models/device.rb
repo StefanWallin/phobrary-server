@@ -5,10 +5,11 @@ class Device < ApplicationRecord
   has_many :sessions, dependent: :destroy
   before_validation :ensure_secret!
 
-  def self.find_and_update(id: nil, name: nil)
+  def self.find_and_update(id: nil, name: nil, app_version: nil)
     device = ActiveRecord::Base.transaction do
       device = Device.find_or_create_by(id: id)
       device.name = name
+      # device.app_version = app_version # TODO: Store last seen app version on device
       device.touch
       device
     end

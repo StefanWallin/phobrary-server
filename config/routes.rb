@@ -21,5 +21,6 @@ Rails.application.routes.draw do
         get '/' => 'status#index'
       end
     end
+    mount Tus::Server => "/files/v1"
   end
 end

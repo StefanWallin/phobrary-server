@@ -4,15 +4,15 @@ module Api
   module Status
     module V1
       class StatusController < ApiController
-        skip_before_action :ensure_totp!, only: :index
-        skip_before_action :ensure_session!, only: :index
+        before_action :ensure_device!, only: :index
+        skip_before_action :ensure_authenticated!, only: :index
 
         def index
           Rails.logger.info params.inspect
           render json: {
             status: 'ok',
-            device_id: @device.id,
-            device_name: @device.name,
+            device_id: current_device.id,
+            device_name: current_device.name,
             server_uuid: Rails.application.config.server[:server_uuid]
           }
         end
