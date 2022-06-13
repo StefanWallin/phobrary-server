@@ -14,7 +14,7 @@
     "webpack-merge": "^5.8.0"
   },
   "devDependencies": {
-    "@webpack-cli/serve": "^1.6.0",
+    "@webpack-cli/serve": "^1.7.0",
     "webpack-dev-server": "^4.6.0"
   },
   "browserslist": [
