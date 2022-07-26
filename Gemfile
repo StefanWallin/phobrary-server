@@ -35,7 +35,7 @@ gem 'mini_exiftool_vendored', '9.2.7.v1'
 gem 'mini_magick', '~> 4.11.0'
 
 # Auth via TOTP (& QR)
-gem 'rqrcode', '~> 1.2.0'
+gem 'rqrcode', '~> 2.1.2'
 gem 'rotp'
 
 # File Upload
