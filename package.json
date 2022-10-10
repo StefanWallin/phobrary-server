@@ -6,7 +6,7 @@
     "actioncable": "^5.2.6",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "@babel/plugin-proposal-object-rest-spread": "^7.16.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.19.4",
     "babel-preset-env": "^1.7.0",
     "qrcode-terminal": "^0.12.0",
     "webpack": "^5.64.4",
